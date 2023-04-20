@@ -407,7 +407,8 @@ void main(void) {
 	while(1) {
 		while(!NMI_flag);
 		NMI_flag = 0;
-		__delay_us(4.2);
+//		__delay_us(4.2);    // HD63C09 3MHz
+		__delay_us(6.4);    // MC68B09 2MHz
 		LATD7 = 0;		// NMI = Low
 		__delay_us(0.4);
 		LATD7 = 1;		// NMI = High
