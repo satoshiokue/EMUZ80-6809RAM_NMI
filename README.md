@@ -11,3 +11,13 @@ https://store.shopping.yahoo.co.jp/orangepicoshop/pico-i-009.html
 
 ![MEZ6809RAM PCB TOP](https://github.com/satoshiokue/MEZ6809RAM_NMI/blob/main/MEZ6809RAMI_top.jpg)
 ![MEZ6809RAM PCB BOTTOM](https://github.com/satoshiokue/MEZ6809RAM_NMI/blob/main/MEZ6809RAMI_bottom.jpg)
+
+## ファームウェア
+main.cはPTCアクセスによってPICがNMI割り込みを固定値のディレイで発生させるファームウェアです。  
+
+下記ブログのAplusBASICv5.HEXを整形してmain.cのrom[]に格納することでASSIST9のTRACE機能を作動させることができます。
+
+夢七さんのブログ「SBC6809をつくる」
+MUTIF09のASSIST09にTRACE機能を加える  
+https://yumeziu.blogspot.com/2019/03/mutif09assist09trace.html
+
