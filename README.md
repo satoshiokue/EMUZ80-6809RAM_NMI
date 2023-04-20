@@ -1,5 +1,6 @@
 ## ファームウェア
-main.cはPTCアクセスによってPICがNMI割り込みを固定値のディレイで発生させるファームウェアです。  
+main.cはNMI割り込みを制御するファームウェアです。  
+6809がPTCのアドレスをアクセスするとPICが固定値のディレイでNMIを発生させます。  
 
 下記ブログのMUTIF09用AplusBASICv5.HEXを整形してmain.cのrom[]に格納することでASSIST9のTRACE機能を作動させることができます。  
 MEZ6809RAMではNMI信号が使えないのでMEZ6809RAM_NMIで使用してください。
