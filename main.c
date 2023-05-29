@@ -343,9 +343,10 @@ void main(void) {
 
 	U3ON = 1;		// Serial port enable
 
-	__delay_us(20);
+	printf("\r\nMEZ6809RAM(NMI) ");
+
 	i = 0;
-    do {
+	do {
 		while(RA1);
 		while(!RA1);
 		LATE0 = 0;		// DMA/BREQ = Low
@@ -398,7 +399,7 @@ void main(void) {
 	NCO1INC = (unsigned int)(CLK_6809 / 30.5175781);
 	NCO1EN = 1;		// NCO enable
 
-	printf("\r\nMEZ6809RAM(NMI) %2.3fMHz\r\n",NCO1INC * 30.5175781 / 4 / 1000000);
+	printf(" %2.3fMHz\r\n",NCO1INC * 30.5175781 / 4 / 1000000);
 
 	//========== CLC input pin assign ===========
 	// 0,1,4,5 = Port A, C
