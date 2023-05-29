@@ -1,5 +1,5 @@
 /*!
- * PIC18F47Q43/PIC18F47Q83/PIC18F47Q84 ROM image uploader and UART/PTM emulation firmware
+ * PIC18F47Q43/PIC18F47Q83/PIC18F47Q84 ROM image uploader and UART emulation firmware
  * This single source file contains all code
  *
  * Target: EMUZ80 with 6809+RAM
@@ -7,7 +7,8 @@
  *
  * Modified by Satoshi Okue https://twitter.com/S_Okue
  * Version 0.1 2022/12/13
- * Version 0.2 2023/4/20
+ * Version 0.2 2023/4/19
+ * Version 0.3 2023/5/29
  */
 
 /*
@@ -76,6 +77,95 @@
 
 // CONFIG10
 #pragma config CP = OFF			// PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
+
+#ifndef _18F47Q43
+// CONFIG9
+#pragma config BOOTPINSEL = RC5	// CRC on boot output pin selection (CRC on boot output pin is RC5)
+#pragma config BPEN = OFF		// CRC on boot output pin enable bit (CRC on boot output pin disabled)
+#pragma config ODCON = OFF		// CRC on boot output pin open drain bit (Pin drives both high-going and low-going signals)
+
+// CONFIG11
+#pragma config BOOTSCEN = OFF	// CRC on boot scan enable for boot area (CRC on boot will not include the boot area of program memory in its calculation)
+#pragma config BOOTCOE = HALT	// CRC on boot Continue on Error for boot areas bit (CRC on boot will stop device if error is detected in boot areas)
+#pragma config APPSCEN = OFF	// CRC on boot application code scan enable (CRC on boot will not include the application area of program memory in its calculation)
+#pragma config SAFSCEN = OFF	// CRC on boot SAF area scan enable (CRC on boot will not include the SAF area of program memory in its calculation)
+#pragma config DATASCEN = OFF	// CRC on boot Data EEPROM scan enable (CRC on boot will not include data EEPROM in its calculation)
+#pragma config CFGSCEN = OFF	// CRC on boot Config fuses scan enable (CRC on boot will not include the configuration fuses in its calculation)
+#pragma config COE = HALT		// CRC on boot Continue on Error for non-boot areas bit (CRC on boot will stop device if error is detected in non-boot areas)
+#pragma config BOOTPOR = OFF	// Boot on CRC Enable bit (CRC on boot will not run)
+
+// CONFIG12
+#pragma config BCRCPOLT = hFF	// Boot Sector Polynomial for CRC on boot bits 31-24 (Bits 31:24 of BCRCPOL are 0xFF)
+
+// CONFIG13
+#pragma config BCRCPOLU = hFF	// Boot Sector Polynomial for CRC on boot bits 23-16 (Bits 23:16 of BCRCPOL are 0xFF)
+
+// CONFIG14
+#pragma config BCRCPOLH = hFF	// Boot Sector Polynomial for CRC on boot bits 15-8 (Bits 15:8 of BCRCPOL are 0xFF)
+
+// CONFIG15
+#pragma config BCRCPOLL = hFF	// Boot Sector Polynomial for CRC on boot bits 7-0 (Bits 7:0 of BCRCPOL are 0xFF)
+
+// CONFIG16
+#pragma config BCRCSEEDT = hFF	// Boot Sector Seed for CRC on boot bits 31-24 (Bits 31:24 of BCRCSEED are 0xFF)
+
+// CONFIG17
+#pragma config BCRCSEEDU = hFF	// Boot Sector Seed for CRC on boot bits 23-16 (Bits 23:16 of BCRCSEED are 0xFF)
+
+// CONFIG18
+#pragma config BCRCSEEDH = hFF	// Boot Sector Seed for CRC on boot bits 15-8 (Bits 15:8 of BCRCSEED are 0xFF)
+
+// CONFIG19
+#pragma config BCRCSEEDL = hFF	// Boot Sector Seed for CRC on boot bits 7-0 (Bits 7:0 of BCRCSEED are 0xFF)
+
+// CONFIG20
+#pragma config BCRCEREST = hFF	// Boot Sector Expected Result for CRC on boot bits 31-24 (Bits 31:24 of BCRCERES are 0xFF)
+
+// CONFIG21
+#pragma config BCRCERESU = hFF	// Boot Sector Expected Result for CRC on boot bits 23-16 (Bits 23:16 of BCRCERES are 0xFF)
+
+// CONFIG22
+#pragma config BCRCERESH = hFF	// Boot Sector Expected Result for CRC on boot bits 15-8 (Bits 15:8 of BCRCERES are 0xFF)
+
+// CONFIG23
+#pragma config BCRCERESL = hFF	// Boot Sector Expected Result for CRC on boot bits 7-0 (Bits 7:0 of BCRCERES are 0xFF)
+
+// CONFIG24
+#pragma config CRCPOLT = hFF	// Non-Boot Sector Polynomial for CRC on boot bits 31-24 (Bits 31:24 of CRCPOL are 0xFF)
+
+// CONFIG25
+#pragma config CRCPOLU = hFF	// Non-Boot Sector Polynomial for CRC on boot bits 23-16 (Bits 23:16 of CRCPOL are 0xFF)
+
+// CONFIG26
+#pragma config CRCPOLH = hFF	// Non-Boot Sector Polynomial for CRC on boot bits 15-8 (Bits 15:8 of CRCPOL are 0xFF)
+
+// CONFIG27
+#pragma config CRCPOLL = hFF	// Non-Boot Sector Polynomial for CRC on boot bits 7-0 (Bits 7:0 of CRCPOL are 0xFF)
+
+// CONFIG28
+#pragma config CRCSEEDT = hFF	// Non-Boot Sector Seed for CRC on boot bits 31-24 (Bits 31:24 of CRCSEED are 0xFF)
+
+// CONFIG29
+#pragma config CRCSEEDU = hFF	// Non-Boot Sector Seed for CRC on boot bits 23-16 (Bits 23:16 of CRCSEED are 0xFF)
+
+// CONFIG30
+#pragma config CRCSEEDH = hFF	// Non-Boot Sector Seed for CRC on boot bits 15-8 (Bits 15:8 of CRCSEED are 0xFF)
+
+// CONFIG31
+#pragma config CRCSEEDL = hFF	// Non-Boot Sector Seed for CRC on boot bits 7-0 (Bits 7:0 of CRCSEED are 0xFF)
+
+// CONFIG32
+#pragma config CRCEREST = hFF	// Non-Boot Sector Expected Result for CRC on boot bits 31-24 (Bits 31:24 of CRCERES are 0xFF)
+
+// CONFIG33
+#pragma config CRCERESU = hFF	// Non-Boot Sector Expected Result for CRC on boot bits 23-16 (Bits 23:16 of CRCERES are 0xFF)
+
+// CONFIG34
+#pragma config CRCERESH = hFF	// Non-Boot Sector Expected Result for CRC on boot bits 15-8 (Bits 15:8 of CRCERES are 0xFF)
+
+// CONFIG35
+#pragma config CRCERESL = hFF	// Non-Boot Sector Expected Result for CRC on boot bits 7-0 (Bits 7:0 of CRCERES are 0xFF)
+#endif
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
@@ -153,8 +243,8 @@ void __interrupt(irq(CLC5),base(8)) CLC5_ISR(){
 		LATC = 0xff;			// Invalid address
 
 	// Detect CLK raising edge
-	while(!RA3){}
-	asm("nop\n");		// wait 62.5ns
+	while(!RA3);
+	NOP();				// wait 62.5ns
 
 	//Release MRDY (D-FF reset)
 	G3POL = 1;
@@ -167,7 +257,7 @@ void __interrupt(irq(CLC5),base(8)) CLC5_ISR(){
 // main routine
 void main(void) {
 
-	unsigned int i;
+	unsigned int i,j;
 
 	// System initialize
 	OSCFRQ = 0x08;	// 64MHz internal OSC
@@ -179,18 +269,18 @@ void main(void) {
 
 	// DMA/BREQ (RE0) output pin
 	ANSELE0 = 0;	// Disable analog function
-	LATE0 = 0;		// DMA/BREQ = Low
+	LATE0 = 1;		// DMA/BREQ = High
 	TRISE0 = 0;		// Set as output
 
 	// Address bus A15-A8 pin
 	ANSELD = 0x00;	// Disable analog function
-	LATD = 0x00;
-	TRISD = 0x00;	// Set as output
+	WPUD = 0xff;	// Week pull up
+	TRISD = 0xff;	// Set as input
 
 	// Address bus A7-A0 pin
 	ANSELB = 0x00;	// Disable analog function
-	LATB = 0x00;
-	TRISB = 0x00;	// Set as output
+	WPUB = 0xff;	// Week pull up
+	TRISB = 0xff;	// Set as input
 
 	// Data bus D7-D0 pin
 	ANSELC = 0x00;	// Disable analog function
@@ -201,7 +291,7 @@ void main(void) {
 	RA3PPS = 0x3f;	// RA1 assign NCO1
 	ANSELA3 = 0;	// Disable analog function
 	TRISA3 = 0;		// NCO output pin
-	NCO1INC = (unsigned int)(CLK_6809 / 30.5175781);
+	NCO1INC = (unsigned int)(400000UL / 30.5175781);
 	NCO1CLK = 0x00; // Clock source Fosc
 	NCO1PFM = 0;	// FDC mode
 	NCO1OUT = 1;	// NCO output enable
@@ -243,24 +333,46 @@ void main(void) {
 	// UART3 Receiver
 	ANSELA7 = 0;	// Disable analog function
 	TRISA7 = 1;		// RX set as input
-	U3RXPPS = 0x07;	//RA7->UART3:RX3;
+	U3RXPPS = 0x07;	// RA7->UART3:RX3;
 
 	// UART3 Transmitter
 	ANSELA6 = 0;	// Disable analog function
 	LATA6 = 1;		// Default level
 	TRISA6 = 0;		// TX set as output
-	RA6PPS = 0x26;	//RA6->UART3:TX3;
+	RA6PPS = 0x26;	// RA6->UART3:TX3;
 
 	U3ON = 1;		// Serial port enable
 
-	for(i = 0; i < ROM_SIZE; i++) {
-		ab.w = i+ROM_TOP;
-		LATD = ab.h;
-		LATB = ab.l;
-		LATA2 = 0;		// /WE=0
-		LATC = rom[i];
-		LATA2 = 1;		// /WE=1
-	}
+	__delay_us(20);
+	i = 0;
+    do {
+		while(RA1);
+		while(!RA1);
+		LATE0 = 0;		// DMA/BREQ = Low
+		while(RA1);
+		while(!RA1);
+		while(RA1);
+		TRISD = 0x00;	// A15-A8:Set as output
+		TRISB = 0x00;	// A7-A0 :Set as output
+
+		for(j = 0; j < 32; j++) {
+			ab.w = i+ROM_TOP;
+			LATD = ab.h;
+			LATB = ab.l;
+			LATA2 = 0;		// /WE=0
+			LATC = rom[i];
+			i++;
+			LATA2 = 1;		// /WE=1
+		}
+		TRISD = 0xff;	// A15-A8:Set as input
+		TRISB = 0xff;	// A7-A0 :Set as input
+
+	while(RA1);
+	while(!RA1);
+	LATE0 = 1;			// DMA/BREQ = High
+	__delay_us(30);
+	} while (i < ROM_SIZE);
+
 
 	// Address bus A15-A8 pin
 	ANSELD = 0x00;	// Disable analog function
@@ -282,9 +394,11 @@ void main(void) {
 	LATD7 = 1;		// NMI = High
 	TRISD7 = 0;		// Set as output
 
-	LATE0 = 1;			// DMA/BREQ = High
+	NCO1EN = 0;		// NCO disable
+	NCO1INC = (unsigned int)(CLK_6809 / 30.5175781);
+	NCO1EN = 1;		// NCO enable
 
-    printf("\r\nMEZ6809RAM(NMI) %2.3fMHz\r\n",NCO1INC * 30.5175781 / 4 / 1000000);
+	printf("\r\nMEZ6809RAM(NMI) %2.3fMHz\r\n",NCO1INC * 30.5175781 / 4 / 1000000);
 
 	//========== CLC input pin assign ===========
 	// 0,1,4,5 = Port A, C
@@ -357,7 +471,7 @@ void main(void) {
 	CLCnGLS2 = 0x20;	// E noninverted
 	CLCnGLS3 = 0x80;	// CLC5 noninverted
 
-	CLCnPOL = 0x80;		// inverted the CLC2 output
+	CLCnPOL = 0x80;		// inverted the CLC4 output
 	CLCnCON = 0x82;		// 4 input AND
 
 	//========== CLC5 MRDY ==========
@@ -397,8 +511,8 @@ void main(void) {
 	IVTLOCKbits.IVTLOCKED = 0x01;
 
 	// CLC VI enable
-	CLC5IF = 0;			// Clear the CLC8 interrupt flag
-	CLC5IE = 1;			// Enabling CLC8 interrupt
+	CLC5IF = 0;			// Clear the CLC5 interrupt flag
+	CLC5IE = 1;			// Enabling CLC5 interrupt
 
 	// 6809 start
 	GIE = 1;			// Global interrupt enable
@@ -407,8 +521,8 @@ void main(void) {
 	while(1) {
 		while(!NMI_flag);
 		NMI_flag = 0;
-//		__delay_us(4.2);    // HD63C09 3MHz
-		__delay_us(6.4);    // MC68B09 2MHz
+		__delay_us(4.2);    // HD63C09 3MHz
+//		__delay_us(6.4);    // MC68B09 2MHz
 		LATD7 = 0;		// NMI = Low
 		__delay_us(0.4);
 		LATD7 = 1;		// NMI = High
